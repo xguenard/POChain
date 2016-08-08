@@ -1,0 +1,38 @@
+type 3 = new joiner = vendeur
+type 2 = entite bancaire, fait l'intermediaire
+type 1 = emetteu
+
+Movement.py:
+    element de base contient toutes les informations 
+    necessaires sur les
+    mouvements.
+    definie aussi la methode pour verifier si
+    un nouveau mouvement est bon
+    en ayant un lien avec un autre.
+
+
+block.py:
+    liste amelioree avec un id associe.
+    contient un certain nombre de mouvements
+
+blockchain.py:
+    Simule le comportement d'une blockchain.
+    Va valider les mouvements et les ajouter 
+    a un bloc, ce bloc sera ajoute
+    A la liste des blocks.
+    Recois les ordres dans une queue (pending_mvts)
+    Renvois les resultats des mvts dans une queue (result_pending)
+
+
+peer_mgr.py:
+    Va envoyer et recevoir des ordres depuis une liste d'entites
+    chaque fois que je recois un mouvement, je l'envoie a toutes
+    les entites.
+    Doit gerer la creation
+
+
+entity.py:
+    Va verifier si un mouvement la concerne et la sauvegarde.
+    doit pouvoir creer des mouvements.
+    Doit pouvoir demander la creation de nouvelles entites
+
