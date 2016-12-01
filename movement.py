@@ -1,14 +1,14 @@
 #Definiton of a movement
-new_deal_str = "New deal creation"
-cmd_str = ["Loan creation", "Finalize deal"\
-        , "Loan selection", "Loan query", new_deal_str]
-new_peer_str = "New peer admission"
-admin_str = "ADMIN"
+new_deal_str = "INITIATE A NEW DEAL"
+cmd_str = ["CREATE A LOAN", "FINALIZE DEAL"\
+        , "SELECT A LOAN", "ASK FOR A LOAN", new_deal_str, "LOAN CLOSURE"]
+new_peer_str = "NEW PEER ADMISSION"
+admin_str = "MISYS"
 
 all_cmd_str = cmd_str 
 
-dico_types = { "Basic entity" : 3, "Financial Institution" : 2 \
-        , "Provider" : 1}
+dico_types = { "BASIC ENTITY" : 3, "FINANCIAL INSTITUTION" : 2 \
+        , "PROVIDER" : 1, "SERVICE PROVIDER" : 4}
 
 class Movement:
 
@@ -105,6 +105,7 @@ def check(Movement_ant, Movement_new):
         Movement_new.reject()
         print("reject for id")
         return
+
     #New deal creation
     if Movement_new.cmd == new_deal_str:
         check_new_deal(Movement_ant, Movement_new)
@@ -126,18 +127,22 @@ def check(Movement_ant, Movement_new):
         check_finalize(Movement_ant, Movement_new)
         return
 
+    if Movement_new.cmd == cmd_str[4]: #Loan Closure
+        check_closure(Movement_ant, Movement_new)
+        return
+
 def check_new_peer(Movement_ant, Movement_new):
     """
         Basic rule to create a new peer
     """
-    if Movement_new.send_type != dico_types["Basic entity"]:
+    if Movement_new.send_type != dico_types["BASIC ENTITY"]:
         Movement_new.validate()
     else:
         Movement_new.reject()
     return
 
 def check_new_deal(Movement_ant, Movement_new):
-    if Movement_new.send_type == dico_types["Basic entity"] and \
+    if Movement_new.send_type == dico_types["BASIC ENTITY"] and \
             Movement_new.send_id in Movement_ant.recv_id:
         Movement_new.validate()
         return
@@ -170,6 +175,14 @@ def check_loan_selection(Movement_ant, Movement_new):
 
 def check_finalize(Movement_ant, Movement_new):
     if Movement_ant.cmd == cmd_str[2]:
+        Movement_new.validate()
+    else:
+        Movement_new.reject()
+    return
+
+
+def check_closure(Movement_ant, Movement_new):
+    if Movement_ant.cmd == cmd_str[1]:
         Movement_new.validate()
     else:
         Movement_new.reject()

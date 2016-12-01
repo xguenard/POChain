@@ -7,7 +7,7 @@ import block_gui
 class MvtList(QtGui.QWidget):
     def __init__(self):
         super().__init__()
-        self.label = QtGui.QLabel("List of transactions by entity")
+        self.label = QtGui.QLabel("TRANSACTIONS LINKED TO THE SELECTED ENTITY")
 
         self.list_view = QtGui.QListView()
         layout = QtGui.QVBoxLayout()
@@ -31,7 +31,7 @@ class EntityList(QtGui.QWidget):
         self.model = model
         self.mvt_list = mvt_list
         self.form = form
-        self.label = QtGui.QLabel("List of entities in the network")
+        self.label = QtGui.QLabel("ENTITIES IN THE NETWORK")
         self.list_view = QtGui.QListView()
         self.list_view.clicked.connect(self.selected)
 
@@ -64,15 +64,16 @@ class FormEntity(QtGui.QWidget):
         line = QtGui.QFrame()
         line.setFrameShape(QtGui.QFrame.HLine)
         line.setFrameShadow(QtGui.QFrame.Sunken)
-        self.label = QtGui.QLabel("Select an entity in the list")
+        self.label = QtGui.QLabel("SELECT AN ENTITY IN THE LIST")
+        self.label.setStyleSheet('color:blue')
         layout.addRow(self.label)
         layout.addRow(line)
 
 ###### CREATE PEER INITIALIZATION ######
         
-        self.line_txt = QtGui.QLineEdit("Enter peer name")
-        self.btn = QtGui.QPushButton("Create peer")
-        label_2 = QtGui.QLabel("New peer interface")
+        self.line_txt = QtGui.QLineEdit("PEER NAME")
+        self.btn = QtGui.QPushButton("CREATE PEER")
+        label_2 = QtGui.QLabel("PEER CREATION INTERFACE")
         label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
 
@@ -82,9 +83,9 @@ class FormEntity(QtGui.QWidget):
         
         self.btn.clicked.connect(self.create_entity)
         layout.addRow(label_2)
-        layout.addRow("New peer type selection : ",self.cmb_box)
-        layout.addRow("New peer name : ",self.line_txt)
-        layout.addRow("Click to finalize :  ",self.btn)
+        layout.addRow("PEER ROLE ",self.cmb_box)
+        layout.addRow("PEER NAME ",self.line_txt)
+        layout.addRow("",self.btn)
 
 ###### END OF CREATE PEER INITIALIZATION ######
         line = QtGui.QFrame()
@@ -93,24 +94,24 @@ class FormEntity(QtGui.QWidget):
         layout.addRow(line)
 
 ######  CREATE MVT  INITIALIZATION ######
-        label_2 = QtGui.QLabel("New movement interface")
+        label_2 = QtGui.QLabel("TRANSACTION CREATION INTERFACE")
         label_2.setAlignment(QtCore.Qt.AlignCenter)
         layout.addRow(label_2)
 
         self.list_cmd = movement.all_cmd_str
         self.cmb_box2 = QtGui.QComboBox()
         self.cmb_box2.addItems(self.list_cmd)
-        layout.addRow("Order type : ", self.cmb_box2)
+        layout.addRow("ORDER TYPE ", self.cmb_box2)
 
         self.line_id = QtGui.QLineEdit()
-        layout.addRow("Target id :",self.line_id)
+        layout.addRow("COUNTERPARTY ID",self.line_id)
 
         self.line_tx = QtGui.QLineEdit()
-        layout.addRow("Transaction reference id : ", self.line_tx)
+        layout.addRow("REFERENCE TRANSACTION ID", self.line_tx)
 
-        self.btn2 = QtGui.QPushButton("Create movement")
+        self.btn2 = QtGui.QPushButton("CREATE TRANSACTION")
         self.btn2.clicked.connect(self.create_mvt)
-        layout.addRow("Click to finalize movement : ", self.btn2)
+        layout.addRow("", self.btn2)
 
 ######  END OF CREATE MVT  INITIALIZATION ######
         self.setLayout(layout)
