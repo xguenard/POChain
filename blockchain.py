@@ -30,6 +30,7 @@ class Blockchain(threading.Thread):
 
         self.test_ok = False
         self.gui = None
+        self.exit = False
     
     def get_queue(self):
         """
@@ -39,6 +40,7 @@ class Blockchain(threading.Thread):
     
     def set_guit(self, block_gui):
         self.gui = block_gui
+
     def update_gui(self, elems):
         if self.gui:
             self.gui.add_elem(elems)
@@ -61,6 +63,8 @@ class Blockchain(threading.Thread):
                 self.block_list.append(new_block)
 
                 self.block_id += 1
+            if self.exit:
+                return
 
         self.test_ok = True
 

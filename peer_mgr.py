@@ -23,12 +23,15 @@ class PeerManager(threading.Thread):
         self.create_req = queue.Queue()
 
         self.entities_gui = data_models.EntityListModel() 
+        self.exit = False
 
     def run(self):
         while True:
             time.sleep(0.5)
             self.process_create_q()
             self.process_results()
+            if self.exit:
+                return
 
     def get_model_list(self):
         return self.entities_gui
