@@ -1,7 +1,7 @@
 #Definition of an entity in the blockchain
 import movement
 import data_models
-from PySide import QtCore
+from PyQt5 import QtCore
 
 class Entity:
     """
@@ -9,7 +9,7 @@ class Entity:
         It can be a bank, a seller etc...
     """
    
-    changed = QtCore.Signal()
+    changed = QtCore.pyqtSignal()
     def __init__(self, name, id, type, queue, create_queue):
         super().__init__()
         self.name = name

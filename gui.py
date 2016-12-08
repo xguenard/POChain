@@ -1,16 +1,16 @@
-from PySide import QtGui, QtCore
+from PyQt5 import QtWidgets, QtCore, QtWidgets
 import threading
 import sys
 import movement
 import block_gui
 
-class MvtList(QtGui.QWidget):
+class MvtList(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
-        self.label = QtGui.QLabel("TRANSACTIONS LINKED TO THE SELECTED ENTITY")
+        self.label = QtWidgets.QLabel("TRANSACTIONS LINKED TO THE SELECTED ENTITY")
 
-        self.list_view = QtGui.QListView()
-        layout = QtGui.QVBoxLayout()
+        self.list_view = QtWidgets.QListView()
+        layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.label)
         layout.addWidget(self.list_view)
         self.setLayout(layout)
@@ -21,7 +21,7 @@ class MvtList(QtGui.QWidget):
         self.list_view.setModel(self.model)
         self.update()
 
-class EntityList(QtGui.QWidget):
+class EntityList(QtWidgets.QWidget):
     """
         Manage list of entities created in the blockchain
         Is connected to a form entity 
@@ -31,12 +31,12 @@ class EntityList(QtGui.QWidget):
         self.model = model
         self.mvt_list = mvt_list
         self.form = form
-        self.label = QtGui.QLabel("ENTITIES IN THE NETWORK")
-        self.list_view = QtGui.QListView()
+        self.label = QtWidgets.QLabel("ENTITIES IN THE NETWORK")
+        self.list_view = QtWidgets.QListView()
         self.list_view.clicked.connect(self.selected)
 
         self.list_view.setModel(self.model)
-        layout = QtGui.QVBoxLayout()
+        layout = QtWidgets.QVBoxLayout()
         layout.addWidget(self.label)
         layout.addWidget(self.list_view)
         self.setLayout(layout)
@@ -50,7 +50,7 @@ class EntityList(QtGui.QWidget):
         self.mvt_list.set_entity(current_entity)
 
 
-class FormEntity(QtGui.QWidget):
+class FormEntity(QtWidgets.QWidget):
     """
         Widget used to create new movmements with entities
     """
@@ -60,25 +60,25 @@ class FormEntity(QtGui.QWidget):
         self.entity = None
 
     def initUI(self):
-        layout = QtGui.QFormLayout()
-        line = QtGui.QFrame()
-        line.setFrameShape(QtGui.QFrame.HLine)
-        line.setFrameShadow(QtGui.QFrame.Sunken)
-        self.label = QtGui.QLabel("SELECT AN ENTITY IN THE LIST")
+        layout = QtWidgets.QFormLayout()
+        line = QtWidgets.QFrame()
+        line.setFrameShape(QtWidgets.QFrame.HLine)
+        line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.label = QtWidgets.QLabel("SELECT AN ENTITY IN THE LIST")
         self.label.setStyleSheet('color:blue')
         layout.addRow(self.label)
         layout.addRow(line)
 
 ###### CREATE PEER INITIALIZATION ######
         
-        self.line_txt = QtGui.QLineEdit("PEER NAME")
-        self.btn = QtGui.QPushButton("CREATE PEER")
-        label_2 = QtGui.QLabel("PEER CREATION INTERFACE")
+        self.line_txt = QtWidgets.QLineEdit("PEER NAME")
+        self.btn = QtWidgets.QPushButton("CREATE PEER")
+        label_2 = QtWidgets.QLabel("PEER CREATION INTERFACE")
         label_2.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
 
         self.list_text = list(movement.dico_types.keys())
-        self.cmb_box = QtGui.QComboBox()
+        self.cmb_box = QtWidgets.QComboBox()
         self.cmb_box.addItems(self.list_text)
         
         self.btn.clicked.connect(self.create_entity)
@@ -88,28 +88,28 @@ class FormEntity(QtGui.QWidget):
         layout.addRow("",self.btn)
 
 ###### END OF CREATE PEER INITIALIZATION ######
-        line = QtGui.QFrame()
-        line.setFrameShape(QtGui.QFrame.HLine)
-        line.setFrameShadow(QtGui.QFrame.Sunken)
+        line = QtWidgets.QFrame()
+        line.setFrameShape(QtWidgets.QFrame.HLine)
+        line.setFrameShadow(QtWidgets.QFrame.Sunken)
         layout.addRow(line)
 
 ######  CREATE MVT  INITIALIZATION ######
-        label_2 = QtGui.QLabel("TRANSACTION CREATION INTERFACE")
+        label_2 = QtWidgets.QLabel("TRANSACTION CREATION INTERFACE")
         label_2.setAlignment(QtCore.Qt.AlignCenter)
         layout.addRow(label_2)
 
         self.list_cmd = movement.all_cmd_str
-        self.cmb_box2 = QtGui.QComboBox()
+        self.cmb_box2 = QtWidgets.QComboBox()
         self.cmb_box2.addItems(self.list_cmd)
         layout.addRow("ORDER TYPE ", self.cmb_box2)
 
-        self.line_id = QtGui.QLineEdit()
+        self.line_id = QtWidgets.QLineEdit()
         layout.addRow("COUNTERPARTY ID",self.line_id)
 
-        self.line_tx = QtGui.QLineEdit()
+        self.line_tx = QtWidgets.QLineEdit()
         layout.addRow("REFERENCE TRANSACTION ID", self.line_tx)
 
-        self.btn2 = QtGui.QPushButton("CREATE TRANSACTION")
+        self.btn2 = QtWidgets.QPushButton("CREATE TRANSACTION")
         self.btn2.clicked.connect(self.create_mvt)
         layout.addRow("", self.btn2)
 
@@ -136,7 +136,7 @@ class FormEntity(QtGui.QWidget):
 
 
 
-class MainWindow(QtGui.QWidget):
+class MainWindow(QtWidgets.QWidget):
     def __init__(self, model_entities):
         super().__init__()
         self.model_entities = model_entities
@@ -144,8 +144,8 @@ class MainWindow(QtGui.QWidget):
     
     def initUI(self):
         self.setGeometry(50, 50, 1400, 900)
-        h_layout = QtGui.QHBoxLayout()
-        v_layout = QtGui.QVBoxLayout()
+        h_layout = QtWidgets.QHBoxLayout()
+        v_layout = QtWidgets.QVBoxLayout()
         # First part the list
         self.form = FormEntity()
         self.mvt_list = MvtList()
@@ -162,8 +162,8 @@ class MainWindow(QtGui.QWidget):
 
         self.block_ui = block_gui.BlockchainWindow(self.size())
 
-        v_layout2 = QtGui.QVBoxLayout()
-        annex_widget = QtGui.QMainWindow()
+        v_layout2 = QtWidgets.QVBoxLayout()
+        annex_widget = QtWidgets.QMainWindow()
         annex_widget.setCentralWidget(self.block_ui)
         v_layout2.addWidget(annex_widget)
         h_layout.addLayout(v_layout2)
@@ -181,7 +181,7 @@ class GuiThread:
         
 
     def load(self):
-        self.app = QtGui.QApplication(sys.argv)
+        self.app = QtWidgets.QApplication(sys.argv)
         self.main_window = MainWindow(self.entity_model)
 
     def run(self):
@@ -193,6 +193,6 @@ class GuiThread:
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     mw = MainWindow()
     app.exec_()

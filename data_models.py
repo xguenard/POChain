@@ -1,5 +1,5 @@
 #This file describe how data is presented to GUI
-from PySide import QtCore
+from PyQt5 import QtCore
 
 class EntityListItem(QtCore.QObject):
     def __init__(self, entity):

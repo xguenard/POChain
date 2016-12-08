@@ -1,9 +1,9 @@
 import sys
-from PySide import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 import threading
 import time
 
-class BlockchainWindow(QtGui.QWidget):
+class BlockchainWindow(QtWidgets.QWidget):
     
     def __init__(self, size):
         super(BlockchainWindow, self).__init__()
